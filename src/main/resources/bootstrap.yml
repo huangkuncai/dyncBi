@@ -1,0 +1,76 @@
+spring:
+  application:
+    name: @project.artifactId@
+
+  profiles:
+    #@xxx@ 引用pom文件中的内容
+    active: @project.env@
+---
+spring:
+  #设置配置文件环境
+  config:
+    activate:
+      on-profile: dev
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 47.110.145.204:8286
+        #命名空间
+        namespace: 70085248-7901-4575-85b6-f6fa4001cac2
+      #文件匹配规则 ${prefix}-${spring.profile.active.on-profile}.${file-extension}
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        namespace: 70085248-7901-4575-85b6-f6fa4001cac2
+        #文件前缀 默认为
+        prefix: @project.artifactId@
+        #文件后缀
+        file-extension: yml
+        #添加共享配置文件
+        shared-configs:
+          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+---
+spring:
+  #设置配置文件环境
+  config:
+    activate:
+      on-profile: release
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 47.110.145.204:8286
+        #命名空间
+        namespace: 9e52391d-79c6-46d9-91cf-7c110a529cc3
+      #文件匹配规则 ${prefix}-${spring.profile.active.on-profile}.${file-extension}
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        namespace: 9e52391d-79c6-46d9-91cf-7c110a529cc3
+        #文件前缀 默认为
+        prefix: @project.artifactId@
+        #文件后缀
+        file-extension: yml
+        #添加共享配置文件
+        shared-configs:
+          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+---
+spring:
+  #设置配置文件环境
+  config:
+    activate:
+      on-profile: master
+  cloud:
+    nacos:
+      discovery:
+        server-addr: nacos.saas.huansi.net:80
+        #命名空间
+        namespace: 79bf4390-3bfb-4e94-a739-62bf6293ecf2
+      #文件匹配规则 ${prefix}-${spring.profile.active.on-profile}.${file-extension}
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        namespace: 79bf4390-3bfb-4e94-a739-62bf6293ecf2
+        #文件前缀 默认为
+        prefix: @project.artifactId@
+        #文件后缀
+        file-extension: yml
+        #添加共享配置文件
+        shared-configs:
+          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
